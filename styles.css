@@ -88,7 +88,24 @@ body {
 
 .burger {
     margin-top: 40px;
-    clip: rect(0, 0, 50px, 0)
+    opacity: 0;
+}
+
+.slide.active .burger {
+    animation: burgerEntrance 0.8s ease forwards;
+}
+
+.meat-name {
+    width: auto;
+    opacity: 0;
+}
+
+.slide.active .meat-name:first-child {
+    animation: textRevealLeft 0.6s ease 0.4s forwards;
+}
+
+.slide.active .meat-name:last-child {
+    animation: textRevealRight 0.6s ease 0.4s forwards;
 }
 
 .slide.active {
@@ -116,10 +133,6 @@ body {
 
 .burger-names img:hover {
     transform: scale(1.05);
-}
-
-.meat-name {
-    width: auto;
 }
 
 .slider-arrow {
@@ -170,4 +183,37 @@ body {
 
 .cta-button:active {
     transform: scale(0.95);
+}
+
+@keyframes burgerEntrance {
+    0% {
+        transform: translateY(40px) scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes textRevealLeft {
+    0% {
+        transform: translate(0%, 100px) scale(0.2) rotate(-40deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes textRevealRight {
+    0% {
+        transform: translate(0%, 100px) scale(0.2) rotate(40deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
 }

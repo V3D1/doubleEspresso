@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevButton = document.querySelector('.prev');
     const nextButton = document.querySelector('.next');
     let currentSlide = 0;
+    let slideInterval;
+
+    function resetInterval() {
+        if (slideInterval) {
+            clearInterval(slideInterval);
+        }
+        slideInterval = setInterval(nextSlide, 7000);
+    }
 
     function showSlide(index) {
         slides.forEach(slide => slide.classList.remove('active'));
@@ -11,18 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
         banner.classList.toggle('bg2', index === 1);
     }
 
-    function nextSlide() {
+    function nextSlide(isUserClick = false) {
         currentSlide = (currentSlide + 1) % slides.length;
         showSlide(currentSlide);
+        if (isUserClick) {
+            resetInterval();
+        }
     }
 
     function prevSlide() {
         currentSlide = (currentSlide - 1 + slides.length) % slides.length;
         showSlide(currentSlide);
+        resetInterval();
     }
 
-    prevButton.addEventListener('click', prevSlide);
-    nextButton.addEventListener('click', nextSlide);
+    prevButton.addEventListener('click', () => prevSlide());
+    nextButton.addEventListener('click', () => nextSlide(true));
 
-    setInterval(nextSlide, 7000);
+    slideInterval = setInterval(() => nextSlide(false), 7000);
 });

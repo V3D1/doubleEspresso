@@ -22,7 +22,7 @@ Interaktywny banner reklamowy dla MAX Premium Burgers, prezentujący nową lini�
 - Waga: Zoptymalizowana dla reklam displayowych
 
 ## 🔧 Uruchomienie
-- Dostępny pod adresem:
+- Dostępny pod adresem: https://max-burgers-banner.netlify.app/
 
 
 ## ♿ Dostępność
