@@ -28,13 +28,37 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-image: url('images/bg.png');
-    background-size: cover;
-    transition: background-image 0.5s ease;
 }
 
-.banner.bg2 {
+.banner::before,
+.banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+}
+
+.banner::before {
+    background-image: url('images/bg.png');
+    opacity: 1;
+}
+
+.banner::after {
     background-image: url('images/bg2.png');
+    opacity: 0;
+}
+
+.banner.bg2::before {
+    opacity: 0;
+}
+
+.banner.bg2::after {
+    opacity: 1;
 }
 
 .logo {
