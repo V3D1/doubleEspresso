@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextButton = document.querySelector('.next');
     let currentSlide = 0;
     let slideInterval;
+    let isAnimating = false;
 
     function resetInterval() {
         if (slideInterval) {
@@ -13,23 +14,43 @@ document.addEventListener('DOMContentLoaded', () => {
         slideInterval = setInterval(nextSlide, 7000);
     }
 
-    function showSlide(index) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        slides[index].classList.add('active');
-        banner.classList.toggle('bg2', index === 1);
-    }
+    slides[0].classList.add('active');
 
+    function showSlide(nextIndex) {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const currentSlideElement = slides[currentSlide];
+        const nextSlideElement = slides[nextIndex];
+        
+        slides.forEach(slide => {
+            if (slide !== currentSlideElement && slide !== nextSlideElement) {
+                slide.classList.remove('active', 'fade-out');
+            }
+        });
+        
+        currentSlideElement.classList.add('fade-out');
+        
+        setTimeout(() => {
+            currentSlideElement.classList.remove('active', 'fade-out');
+            nextSlideElement.classList.add('active');
+            banner.classList.toggle('bg2', nextIndex === 1);
+            currentSlide = nextIndex;
+            isAnimating = false;
+        }, 500);
+    }
+    
     function nextSlide(isUserClick = false) {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
+        const nextIndex = (currentSlide + 1) % slides.length;
+        showSlide(nextIndex);
         if (isUserClick) {
             resetInterval();
         }
     }
 
     function prevSlide() {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(currentSlide);
+        const nextIndex = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(nextIndex);
         resetInterval();
     }
 
